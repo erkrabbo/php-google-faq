@@ -32,9 +32,9 @@
                         [
                             "Google Ireland Limited, se gli utenti sono residenti nello Spazio economico europeo (paesi dell'Unione europea, oltre a Islanda, Liechtenstein e Norvegia) o in Svizzera.",
                             "Google LLC, con sede negli Stati Uniti, per il resto del mondo."
-                        ]
-                    ],
-                    "Google LLC, con sede negli Stati Uniti, per il resto del mondo."
+                        ],
+                        "La versione dei termini che regola il nostro rapporto, che può variare in base alle leggi locali."
+                    ]
                 ],
                 "Tieni presente che i servizi Google sono fondamentalmente gli stessi a prescindere dalla società consociata che li offre o dal paese a cui è associato il tuo account."
             ]
@@ -55,12 +55,23 @@
         }
     }
 
-    function recursive_check ($arr){
+    function recursive_check ($arr, $list_type = ''){
+        if ($list_type != ''){
+            echo "<$list_type>";
+        }
         foreach($arr as $ele){
-            if (is_array($ele)){
-                recursive_check($ele);
-            } else if (is_string($ele)){
+            if (is_string($ele) && $list_type === ''){
                 echo "<p>$ele</p>";
+            } else{
+                 if (is_array($ele)){
+                recursive_check($ele, "ol");
+                } else if (is_string($ele)){
+                echo "<li>$ele</li>";
+                };
             };
+        };
+        if ($list_type != ''){
+            echo "</$list_type>";
         }
     };
+
