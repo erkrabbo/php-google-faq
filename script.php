@@ -21,7 +21,24 @@
             Puoi leggere ulteriori informazioni sulla sicurezza online, incluso come proteggere te e la tua famiglia online, nel Centro Google per la sicurezza online.
             
             Scopri quali misure adottiamo per garantire protezione e sicurezza alle tue informazioni personali, lasciando a te il controllo."
-        ]
+        ],
+        [
+            "question" => "Perché il mio account è associato a un paese?",
+            "answer" => [
+                "Il tuo account è associato a un paese (o territorio) nei Termini di servizio per poter stabilire due cose:",
+                [
+                    [
+                        "La società consociata Google che offre i servizi, tratta le tue informazioni ed è responsabile del rispetto delle leggi sulla privacy vigenti. Generalmente Google offre i propri servizi per i consumatori tramite una delle due società seguenti:",
+                        [
+                            "Google Ireland Limited, se gli utenti sono residenti nello Spazio economico europeo (paesi dell'Unione europea, oltre a Islanda, Liechtenstein e Norvegia) o in Svizzera.",
+                            "Google LLC, con sede negli Stati Uniti, per il resto del mondo."
+                        ]
+                    ],
+                    "Google LLC, con sede negli Stati Uniti, per il resto del mondo."
+                ],
+                "Tieni presente che i servizi Google sono fondamentalmente gli stessi a prescindere dalla società consociata che li offre o dal paese a cui è associato il tuo account."
+            ]
+        ],
     ];
 
     foreach($faq as $question){
@@ -29,15 +46,21 @@
             if($key === "question"){
                 echo "<h2>$value</h2>";
             }else{
-                if(is_string($value)){
-                echo $value;
-                } elseif(is_array($value)){
-                    foreach($value as $answer_element){
-                        if(is_string($answer_element)){
-                            echo $answer_element;
-                            }
-                    }
+                if(is_array($value)){
+                    recursive_check($value);
+                } else {
+                    echo "<p>$value</p>";
                 }
             }
         }
     }
+
+    function recursive_check ($arr){
+        foreach($arr as $ele){
+            if (is_array($ele)){
+                recursive_check($ele);
+            } else if (is_string($ele)){
+                echo "<p>$ele</p>";
+            };
+        }
+    };
