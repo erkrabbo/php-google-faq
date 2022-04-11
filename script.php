@@ -47,7 +47,7 @@
                 echo "<h2>$value</h2>";
             }else{
                 if(is_array($value)){
-                    recursive_check($value);
+                    recursive_check($value, '', -1);
                 } else {
                     echo "<p>$value</p>";
                 }
@@ -55,22 +55,27 @@
         }
     }
 
-    function recursive_check ($arr, $list_type = ''){
-        if ($list_type != ''){
-            echo "<$list_type>";
-        }
+    function recursive_check ($arr, $list_type = '', $counter){
+        $possible_lists = [1, "a", "i"];
+
+        if ($list_type != '' && $counter >= 0){
+            echo "<$list_type type='{$possible_lists[$counter]}'>";
+        };
         foreach($arr as $ele){
             if (is_string($ele) && $list_type === ''){
                 echo "<p>$ele</p>";
             } else{
-                 if (is_array($ele)){
-                recursive_check($ele, "ol");
+                if (is_array($ele)){
+                    if ($list_type != ''){
+                        $counter++;
+                    }
+                    recursive_check($ele, "ol", $counter);
                 } else if (is_string($ele)){
                 echo "<li>$ele</li>";
                 };
             };
         };
-        if ($list_type != ''){
+        if ($list_type != '' && $counter >= 0){
             echo "</$list_type>";
         }
     };
